@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "586227046909",
+    "project_id": "comdailyfreediamondguideffskin",
+    "storage_bucket": "comdailyfreediamondguideffskin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586227046909:android:6a35c74476d8538b586194",
+        "android_client_info": {
+          "package_name": "com.fansquad.ffdiatips.skinrewards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Cgz7ObKvEJOVSDQPG_5Y5Vp-omsYla8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

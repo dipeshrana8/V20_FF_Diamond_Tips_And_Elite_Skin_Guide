@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <gradient
+                android:angle="315"
+                android:endColor="@color/drx_moziqonwhite"
+                android:startColor="@color/colordrx_moziqonprimary"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="9dp" />
+            <gradient
+                android:angle="315"
+                android:centerColor="#261F16"
+                android:endColor="#261F16"
+                android:startColor="#261F16"
+                android:type="linear"
+                android:useLevel="false" />
+        </shape>
+    </item>
+
+</layer-list>

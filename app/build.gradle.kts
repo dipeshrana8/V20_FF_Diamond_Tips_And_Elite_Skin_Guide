@@ -53,24 +53,15 @@ android {
 }
 
 dependencies {
-    // Core & UI
+    implementation(libs.browser)
     implementation(libs.core.ktx)
-    implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.constraintlayout)
-    implementation(libs.activity)
-
-    // Firebase & OneSignal
+    implementation(libs.ssp.android)
+    implementation(libs.sdp.android)
+    implementation("com.airbnb.android:lottie:6.6.2")
+    implementation(libs.glide)
     implementation(libs.firebase.config)
+    implementation(libs.gson)
     implementation("com.onesignal:OneSignal:[5.1.6, 5.1.99]")
 
-    // UI Helpers
-    implementation(libs.sdp.android)
-    implementation(libs.ssp.android)
-    implementation("com.airbnb.android:lottie:6.6.2")
-
-    // Utility Libraries
-    implementation(libs.browser)
-    implementation(libs.glide)
-    implementation(libs.gson)
 }

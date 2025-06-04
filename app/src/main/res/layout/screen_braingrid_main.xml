@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_maindrx_moziqon_bg"
+    android:orientation="vertical"
+    tools:context=".xentry.MindPlayView">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/header_topzone_ui" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameAdDynShell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/_5sdp"
+
+                android:minHeight="@dimen/_180sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtQuestionCounter"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/drx_moziqon73"
+                    android:fontFamily="@font/drx_moziqonsemibold"
+                    android:gravity="center"
+                    android:text="Question 1/5"
+                    android:textColor="@color/drx_moziqon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"></View>
+
+                <TextView
+                    android:id="@+id/txtCorrectCounter"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_25sdp"
+
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/drx_moziqon73"
+                    android:fontFamily="@font/drx_moziqonsemibold"
+                    android:gravity="center"
+                    android:text="Correct 0/5"
+                    android:textColor="@color/drx_moziqon"
+
+                    />
+            </LinearLayout>
+
+            <!-- Circle with question number -->
+            <TextView
+                android:id="@+id/txtCircleNumber"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/drx_moziqon3"
+                android:gravity="center"
+                android:text="01"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/viewColorCircle"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/drx_moziqon73"
+                android:elevation="@dimen/_2sdp"
+                android:visibility="visible" />
+
+            <!-- Question Text -->
+            <TextView
+                android:id="@+id/txtQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/drx_moziqonsemibold"
+                android:gravity="center"
+                android:text="What is the largest ocean on Earth?"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <!-- Options -->
+            <LinearLayout
+                android:id="@+id/layoutOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOption1"
+                        style="@style/drx_moziqonQuizButtonStyle"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_weight="1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOption2"
+                        style="@style/drx_moziqonQuizButtonStyle"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_5sdp"
+
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOption3"
+                        style="@style/drx_moziqonQuizButtonStyle"
+                        android:layout_marginEnd="@dimen/_10sdp"
+
+                        android:layout_weight="1" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnOption4"
+                        style="@style/drx_moziqonQuizButtonStyle"
+                        android:layout_marginStart="@dimen/_10sdp"
+
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

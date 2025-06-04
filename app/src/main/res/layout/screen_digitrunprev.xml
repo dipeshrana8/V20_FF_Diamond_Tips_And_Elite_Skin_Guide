@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_maindrx_moziqon_bg"
+    android:orientation="vertical"
+    tools:context=".xentry.RewardEstimator">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/header_topzone_ui" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameAdDynShell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/_5sdp"
+
+                android:minHeight="@dimen/_180sdp" />
+
+
+            <ImageView
+                android:id="@+id/imgCalculator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/drx_moziqon27" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+
+                android:background="@drawable/drx_moziqon74"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/etCal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:background="@null"
+                    android:fontFamily="@font/drx_moziqonmedium"
+                    android:hint="Enter Diamond Number"
+                    android:inputType="number"
+                    android:textColor="@color/drx_moziqonwhite"
+                    android:textColorHint="@color/drx_moziqonwhite"
+                    android:textSize="@dimen/_10ssp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/headerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/drx_moziqonregular"
+                android:justificationMode="inter_word"
+                android:text="Easily convert your diamonds into real-world currency with our Diamond to Dollar Count feature. "
+                android:textColor="@color/txtdrx_moziqon_sub"
+                android:textSize="@dimen/_10ssp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imgBtnCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_80sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/drx_moziqon25" />
+
+</LinearLayout>

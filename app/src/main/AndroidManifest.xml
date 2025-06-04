@@ -12,21 +12,91 @@
     </queries>
 
     <application
-        android:name=".spalsh.MyApplication"
+        android:name=".NovaAppKernel"
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/drx_moziqon"
+        android:label="@string/app_namdrx_moziqon"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Diamonds"
+        android:theme="@style/Theme.drx_moziqon"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+
         <activity
-            android:name=".spalsh.A1_SplashActivity"
+            android:name=".xentry.DiamonDexterAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.LocaleTuneAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.SecTermsView"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.MainCoreNav"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.AppPrefNode"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.ExitGateAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".xentry.BonusFetchAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.ActionPulseAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.GearVaultAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.CoreDetailsFx"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.LiteCalcFrame"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.RewardEstimator"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.VisualWrapAct"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.CharacterListActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.XBootInit"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -37,115 +107,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".spalsh.Intro1Activity"
+            android:name=".xentry.DiamondGuideActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.CountryActivity"
+            android:name=".xentry.AvatarViewAct"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.A4_PrivacyActivity"
+            android:name=".xentry.GetDailyDiamondActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.HomeActivity"
+            android:name=".xentry.SpinTryAct"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.A6_SettingActivity"
+            android:name=".xentry.AppGuideActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.A7_ExitActivity"
+            android:name=".xentry.MindPlayView"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.SpinActivity"
+            android:name=".xentry.LegalFluxFrame"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".spalsh.Intro2Activity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.EmotesActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.WeaponsActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.A21_DetailsActivity"
+            android:name=".xentry.CharacterSelectActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".spalsh.BasicCalActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.A27_DiamondCalActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".spalsh.AllSkinsActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".spalsh.CharacterListActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".spalsh.DiamondGuideActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.CharacterActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.GetDailyDiamondActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".spalsh.LuckyActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.AppGuideActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".spalsh.ScratchActivity"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

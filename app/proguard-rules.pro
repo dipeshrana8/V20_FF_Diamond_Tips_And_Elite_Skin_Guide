@@ -71,5 +71,5 @@
 # Check their documentation!
 
 
--keep class com.xrayscan.malebodyscanner.camera.simulatorapp.core.** { *; }
--keep class com.xrayscan.malebodyscanner.camera.simulatorapp.entry.** { *; }
+-keep class com.fansquad.ffdiatips.skinrewards.datazone.** { *; }
+-keep class com.fansquad.ffdiatips.skinrewards.zstream.** { *; }

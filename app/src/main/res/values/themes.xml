@@ -1,8 +1,16 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Diamonds" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.drx_moziqon" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="Theme.Diamonds" parent="Base.Theme.Diamonds" />
+    <style name="drx_moziqonQuizButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/drx_moziqon1</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="Theme.drx_moziqon" parent="Base.Theme.drx_moziqon" />
 </resources>

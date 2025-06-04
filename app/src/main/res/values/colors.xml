@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#FFFFFFFF</color>
-    <color name="txt_sub">#C9C9C9</color>
+    <color name="drx_moziqonwhite">#FFFFFFFF</color>
+    <color name="drx_moziqon">#000000</color>
+    <color name="txtdrx_moziqon_sub">#C9C9C9</color>
 
-    <color name="colorprimary">#235244</color>
+    <color name="colordrx_moziqonprimary">#FFD9C2</color>
+    <color name="app_maindrx_moziqon_bg">#241E15</color>
 </resources>

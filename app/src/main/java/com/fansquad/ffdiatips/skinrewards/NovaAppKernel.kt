@@ -31,17 +31,17 @@ class NovaAppKernel : ZControlUnit() {
         sharedPreferences = getSharedPreferences(databaseName, MODE_PRIVATE)
         editor = sharedPreferences.edit()
 
-        setupFirebaseRemoteConfig()
+        drx_moziqon_r()
     }
 
-    private fun setupFirebaseRemoteConfig() {
+    private fun drx_moziqon_r() {
         val remoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder()
             .setMinimumFetchIntervalInSeconds(100)
             .build()
 
         remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        remoteConfig.setDefaultsAsync(R.xml.drx_moziqon_r)
 
         remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -63,10 +63,10 @@ class NovaAppKernel : ZControlUnit() {
                         )
                     )
 
-                    val bannerImageArray = extractStringList(jsonObject, "daily_BannerImage")
+                    val bannerImageArray = drx_moziqon_l(jsonObject, "daily_BannerImage")
                     AdPulsePrefs.setKeyStringList(bannerImageArray)
 
-                    val multipleLinkArray = extractStringList(jsonObject, "multiple_link")
+                    val multipleLinkArray = drx_moziqon_l(jsonObject, "multiple_link")
                     if (multipleLinkArray.isNotEmpty()) {
                         val selectedLink = multipleLinkArray.random()
                         AdPulsePrefs.setRedirectLink(selectedLink)
@@ -86,7 +86,7 @@ class NovaAppKernel : ZControlUnit() {
         }
     }
 
-    private fun extractStringList(jsonObject: JSONObject, key: String): ArrayList<String> {
+    private fun drx_moziqon_l(jsonObject: JSONObject, key: String): ArrayList<String> {
         val result = ArrayList<String>()
         try {
             val jsonArray = JSONArray(jsonObject.getString(key))

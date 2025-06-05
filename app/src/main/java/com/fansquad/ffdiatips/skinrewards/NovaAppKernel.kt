@@ -14,13 +14,13 @@ import org.json.JSONObject
 
 class NovaAppKernel : ZControlUnit() {
 
-    private var editor: SharedPreferences.Editor? = null
+    private var drx_moziqoneditor: SharedPreferences.Editor? = null
 
     companion object {
-        lateinit var sharedPreferences: SharedPreferences
+        lateinit var drx_moziqonsharedPreferences: SharedPreferences
     }
 
-    private val databaseName = "ad_demo"
+    private val drx_moziqon_db = "drx_moziqon"
 
     override fun onCreate() {
         super.onCreate()
@@ -28,8 +28,8 @@ class NovaAppKernel : ZControlUnit() {
         FirebaseApp.initializeApp(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        sharedPreferences = getSharedPreferences(databaseName, MODE_PRIVATE)
-        editor = sharedPreferences.edit()
+        drx_moziqonsharedPreferences = getSharedPreferences(drx_moziqon_db, MODE_PRIVATE)
+        drx_moziqoneditor = drx_moziqonsharedPreferences.edit()
 
         drx_moziqon_r()
     }

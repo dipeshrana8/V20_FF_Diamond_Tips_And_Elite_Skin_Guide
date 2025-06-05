@@ -100,7 +100,7 @@ public class SpinTryAct extends CoreHostFx {
 
             youWinnner();
         } else {
-            tryNextTime();
+            Toast.makeText(this, "Try Next Time!", Toast.LENGTH_SHORT).show();
         }
 
         new Handler().postDelayed(this::resetGameState, 1000);
@@ -170,34 +170,10 @@ public class SpinTryAct extends CoreHostFx {
         dialog.show();
     }
 
-    private void tryNextTime() {
-
-        View dialogView = LayoutInflater.from(SpinTryAct.this).inflate(R.layout.popup_retryseq, null);
-        AlertDialog dialog = new AlertDialog.Builder(SpinTryAct.this)
-                .setView(dialogView)
-                .create();
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-
-        dialogView.findViewById(R.id.btnExit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                prefs.edit().putBoolean("spin_dialog_shown", true).apply();
-                dialog.dismiss();
-                finish();
-            }
-        });
-
-        dialog.show();
-    }
 
     private void resetGameState() {
         for (int index : integers) {
-            imageViews[index].setImageResource(R.drawable.drx_moziqon52); // hide again
+            imageViews[index].setImageResource(R.drawable.drx_moziqon52);
         }
         integers.clear();
         integers1.clear();

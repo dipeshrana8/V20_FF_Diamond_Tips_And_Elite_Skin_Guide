@@ -11,8 +11,8 @@ public class PlayerIdActivity extends CoreHostFx {
 
     ActivityPlayerIdBinding screenDigitrunprevBinding;
     String calculatorName;
-    private boolean aBoolean = false;
 
+    boolean aBoolean;
     private SharedPreferences preferences;
 
     @Override
@@ -33,8 +33,7 @@ public class PlayerIdActivity extends CoreHostFx {
             titleBarTextDyn = calculatorName;
         }
 
-        preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        aBoolean = preferences.getBoolean("Guide", false);
+
         enableSettingsNav = true;
 
         initTitleBarUx(
@@ -70,7 +69,8 @@ public class PlayerIdActivity extends CoreHostFx {
             Toast.makeText(this, "Enter A Valid ID", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        aBoolean = preferences.getBoolean("Guide", false);
         if (aBoolean) {
             startActivity(new Intent(PlayerIdActivity.this, GameGuidesActivity.class));
 

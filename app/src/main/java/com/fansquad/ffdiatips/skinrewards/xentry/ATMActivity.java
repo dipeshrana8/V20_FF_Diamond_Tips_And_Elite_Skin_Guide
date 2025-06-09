@@ -1,14 +1,17 @@
 package com.fansquad.ffdiatips.skinrewards.xentry;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.fansquad.ffdiatips.skinrewards.R;
 import com.fansquad.ffdiatips.skinrewards.databinding.ActivityAtmactivityBinding;
@@ -17,6 +20,10 @@ import com.fansquad.ffdiatips.skinrewards.zstream.NetRouteHelper;
 
 public class ATMActivity extends CoreHostFx {
     private ActivityAtmactivityBinding policyReadvaultBinding;
+
+    private Handler standbyHandler;
+    private Runnable standbyRunnable;
+    private boolean isUserEligible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +34,8 @@ public class ATMActivity extends CoreHostFx {
 
         policyReadvaultBinding = ActivityAtmactivityBinding.inflate(getLayoutInflater());
         setContentView(policyReadvaultBinding.getRoot());
-        policyReadvaultBinding.toolbarLayout.btnBack.setOnClickListener(v -> exitWithBridgeAd());
 
+        policyReadvaultBinding.toolbarLayout.btnBack.setOnClickListener(v -> exitWithBridgeAd());
 
         initTitleBarUx(
                 policyReadvaultBinding.toolbarLayout.headerTitle,
@@ -36,10 +43,10 @@ public class ATMActivity extends CoreHostFx {
                 policyReadvaultBinding.toolbarLayout.btnSettings
         );
 
-
         WebSettings webSettings = policyReadvaultBinding.webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         policyReadvaultBinding.webView.setWebViewClient(new WebViewClient());
+
         String redirectLink = AdPulsePrefs.getRedirectLink();
         if (!redirectLink.isEmpty()) {
             policyReadvaultBinding.webView.loadUrl(redirectLink);
@@ -47,7 +54,10 @@ public class ATMActivity extends CoreHostFx {
             policyReadvaultBinding.webView.loadData("<h2>No Privacy Policy URL available</h2>", "text/html", "UTF-8");
         }
 
-
+        // Start 5-second timer
+        standbyHandler = new Handler();
+        standbyRunnable = () -> isUserEligible = true;
+        standbyHandler.postDelayed(standbyRunnable, 60000);
     }
 
     @Override
@@ -60,8 +70,6 @@ public class ATMActivity extends CoreHostFx {
     }
 
     private void youWinnner() {
-
-
         View dialogView = LayoutInflater.from(ATMActivity.this).inflate(R.layout.modal_spinfetch, null);
         AlertDialog dialog = new AlertDialog.Builder(ATMActivity.this)
                 .setView(dialogView)
@@ -71,55 +79,65 @@ public class ATMActivity extends CoreHostFx {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
-        dialogView.findViewById(R.id.btnCollect).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                int currentTotal = sharedPreferences.getInt("reward_value", 0); // default is 0
-
-                int my_new = Integer.parseInt("50");
-                int updatedTotal = currentTotal + my_new;
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("reward_value", updatedTotal);
-                editor.apply();
+        dialogView.findViewById(R.id.btnCollect).setOnClickListener(v -> {
 
 
-                NetRouteHelper.triggerSparkFlow(ATMActivity.this);
-                finish();
-                dialog.dismiss();
-
-            }
-        });
-
-
-        dialogView.findViewById(R.id.txtHome).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-            }
-        });
-        dialogView.findViewById(R.id.txAD2X).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            if (isUserEligible) {
                 SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                 int currentTotal = sharedPreferences.getInt("reward_value", 0);
+                int updatedTotal = currentTotal + 50;
 
-                int my_new = Integer.parseInt("100");
-                int updatedTotal = currentTotal + my_new;
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("reward_value", updatedTotal);
-                editor.apply();
-                finish();
+                sharedPreferences.edit().putInt("reward_value", updatedTotal).apply();
 
                 NetRouteHelper.triggerSparkFlow(ATMActivity.this);
                 dialog.dismiss();
+                finish();
+            } else {
+                Toast.makeText(this, "Play game for few minutes if you want diamonf", Toast.LENGTH_SHORT).show();
             }
+
+        });
+
+        dialogView.findViewById(R.id.txtHome).setOnClickListener(v -> {
+            dialog.dismiss();
+            startActivity(new Intent(ATMActivity.this, MainCoreNav.class));
+            finish();
+        });
+
+        dialogView.findViewById(R.id.txAD2X).setOnClickListener(v -> {
+            if (isUserEligible) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                int currentTotal = sharedPreferences.getInt("reward_value", 0);
+                int updatedTotal = currentTotal + 100;
+
+                sharedPreferences.edit().putInt("reward_value", updatedTotal).apply();
+
+                NetRouteHelper.triggerSparkFlow(ATMActivity.this);
+                dialog.dismiss();
+                finish();
+            } else {
+                Toast.makeText(this, "Play game for few minutes if you want diamonf", Toast.LENGTH_SHORT).show();
+            }
+
+
         });
 
         dialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (standbyHandler != null && standbyRunnable != null) {
+            standbyHandler.removeCallbacks(standbyRunnable);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (standbyHandler != null) {
+            standbyHandler.removeCallbacks(standbyRunnable);
+        }
     }
 }

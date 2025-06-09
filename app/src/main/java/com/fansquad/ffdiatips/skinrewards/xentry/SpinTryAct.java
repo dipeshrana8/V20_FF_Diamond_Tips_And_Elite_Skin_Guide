@@ -1,5 +1,6 @@
 package com.fansquad.ffdiatips.skinrewards.xentry;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,10 +26,11 @@ public class SpinTryAct extends CoreHostFx {
     private final List<Integer> integers = new ArrayList<>();
     private final List<Integer> integers1 = new ArrayList<>();
     private final int[] images = {
-            R.drawable.drx_moziqon36, R.drawable.drx_moziqon38, R.drawable.drx_moziqon36,
-            R.drawable.drx_moziqon38, R.drawable.drx_moziqon36, R.drawable.drx_moziqon38,
-            R.drawable.drx_moziqon38, R.drawable.drx_moziqon38, R.drawable.drx_moziqon36
+            R.drawable.drx_moziqon38, R.drawable.drx_moziqon38, R.drawable.drx_moziqon38,
+            R.drawable.drx_moziqon38, R.drawable.drx_moziqon38, R.drawable.drx_moziqon38,
+            R.drawable.drx_moziqon38, R.drawable.drx_moziqon38, R.drawable.drx_moziqon38
     };
+
     private WinluckCoretrackBinding winluckCoretrackBinding;
     private ImageView[] imageViews;
     private int[] shuffledimages;
@@ -39,6 +41,7 @@ public class SpinTryAct extends CoreHostFx {
         super.onCreate(savedInstanceState);
         winluckCoretrackBinding = WinluckCoretrackBinding.inflate(getLayoutInflater());
         setContentView(winluckCoretrackBinding.getRoot());
+
         winluckCoretrackBinding.btnBack.setOnClickListener(v -> exitWithBridgeAd());
 
         setupGame();
@@ -57,67 +60,48 @@ public class SpinTryAct extends CoreHostFx {
 
         shuffledimages = images.clone();
         List<Integer> imageList = new ArrayList<>();
-        for (int img : shuffledimages) {
-            imageList.add(img);
-        }
+        for (int img : shuffledimages) imageList.add(img);
         Collections.shuffle(imageList);
         for (int i = 0; i < shuffledimages.length; i++) {
             shuffledimages[i] = imageList.get(i);
         }
 
         for (int i = 0; i < imageViews.length; i++) {
-            int index = i;
-            imageViews[i].setImageResource(R.drawable.drx_moziqon52);
-            imageViews[i].setOnClickListener(v -> onImageClicked(index));
+            imageViews[i].setImageResource(R.drawable.drx_moziqon52); // default image
+            imageViews[i].setEnabled(true);
+            int finalI = i;
+            imageViews[i].setOnClickListener(v -> onImageClicked(finalI));
         }
 
         integers.clear();
         integers1.clear();
+
+        restoreClickedButtonIfNeeded(); // apply saved clicked image
     }
 
     private void onImageClicked(int index) {
-        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        long lastSpinTime = prefs.getLong("last_spin_time", 0);
+        SharedPreferences prefs = getSharedPreferences("SpinDataPrefs", MODE_PRIVATE);
+        long lastClickTime = prefs.getLong("clicked_time", 0);
         long currentTime = System.currentTimeMillis();
-        long hoursDiff = (currentTime - lastSpinTime) / (1000 * 60 * 60); // hours
 
-        if (hoursDiff < 24) {
-            View dialogView = LayoutInflater.from(SpinTryAct.this).inflate(R.layout.aftreclickdialog, null);
-            AlertDialog dialog = new AlertDialog.Builder(SpinTryAct.this)
-                    .setView(dialogView)
-                    .create();
-
-            if (dialog.getWindow() != null) {
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            }
-
-
-            dialogView.findViewById(R.id.btnOkay).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    dialog.dismiss();
-                }
-            });
-
-            dialog.show();
+        if ((currentTime - lastClickTime) < 24 * 60 * 60 * 1000) {
+            showCooldownDialog();
             return;
         }
 
-        // Allow spin
-        if (integers.contains(index) || integers.size() >= 3)
-            return;
+        if (integers.contains(index) || integers.size() >= 1) return;
 
-        imageViews[index].setImageResource(shuffledimages[index]);
+        int selectedImage = shuffledimages[index];
+        imageViews[index].setImageResource(selectedImage);
+        imageViews[index].setEnabled(false);
+
         integers.add(index);
-        integers1.add(shuffledimages[index]);
+        integers1.add(selectedImage);
 
-        if (integers.size() == 3) {
-            // Save current time as spin time
-            prefs.edit().putLong("last_spin_time", currentTime).apply();
-            new Handler().postDelayed(this::checkResult, 1000);
-        }
+        saveClickedButtonData(index, selectedImage, currentTime);
+
+        prefs.edit().putLong("last_spin_time", currentTime).apply();
+        new Handler().postDelayed(this::checkResult, 1000);
     }
 
     private void checkResult() {
@@ -131,12 +115,25 @@ public class SpinTryAct extends CoreHostFx {
             Toast.makeText(this, "Try Next Time!", Toast.LENGTH_SHORT).show();
         }
 
-        new Handler().postDelayed(this::resetGameState, 1000);
+    }
+
+    private void showCooldownDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.aftreclickdialog, null);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        dialogView.findViewById(R.id.btnOkay).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
     private void youWinnner() {
-        View dialogView = LayoutInflater.from(SpinTryAct.this).inflate(R.layout.modal_spinfetch, null);
-        AlertDialog dialog = new AlertDialog.Builder(SpinTryAct.this)
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.modal_spinfetch, null);
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .create();
 
@@ -145,47 +142,60 @@ public class SpinTryAct extends CoreHostFx {
         }
 
         dialogView.findViewById(R.id.btnCollect).setOnClickListener(v -> {
-            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-            int currentTotal = sharedPreferences.getInt("reward_value", 0);
-            int updatedTotal = currentTotal + 50;
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("reward_value", updatedTotal);
-            editor.apply();
-
-            winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
-            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
+            updateReward(50);
             dialog.dismiss();
-        });
-
-        dialogView.findViewById(R.id.txtHome).setOnClickListener(v -> {
-            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
-            dialog.dismiss();
+            finish();
         });
 
         dialogView.findViewById(R.id.txAD2X).setOnClickListener(v -> {
-            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-            int currentTotal = sharedPreferences.getInt("reward_value", 0);
-            int updatedTotal = currentTotal + 100;
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("reward_value", updatedTotal);
-            editor.apply();
-
-            winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
-            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
+            updateReward(100);
             dialog.dismiss();
+            finish();
+        });
+
+        dialogView.findViewById(R.id.txtHome).setOnClickListener(v -> {
+            dialog.dismiss();
+            startActivity(new Intent(this, MainCoreNav.class));
+            finish();
         });
 
         dialog.show();
     }
 
-    private void resetGameState() {
-        for (int index : integers) {
-            imageViews[index].setImageResource(R.drawable.drx_moziqon52);
+    private void updateReward(int amount) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        int currentTotal = sharedPreferences.getInt("reward_value", 0);
+        sharedPreferences.edit().putInt("reward_value", currentTotal + amount).apply();
+        winluckCoretrackBinding.txtCountEarn.setText("Total : " + (currentTotal + amount));
+        NetRouteHelper.triggerSparkFlow(this);
+    }
+
+    private void saveClickedButtonData(int index, int imageResId, long time) {
+        SharedPreferences prefs = getSharedPreferences("SpinDataPrefs", MODE_PRIVATE);
+        prefs.edit()
+                .putInt("clicked_index", index)
+                .putInt("clicked_image", imageResId)
+                .putLong("clicked_time", time)
+                .apply();
+    }
+
+    private void restoreClickedButtonIfNeeded() {
+        SharedPreferences prefs = getSharedPreferences("SpinDataPrefs", MODE_PRIVATE);
+        long lastClickTime = prefs.getLong("clicked_time", 0);
+        long now = System.currentTimeMillis();
+
+        if ((now - lastClickTime) < 24 * 60 * 60 * 1000) {
+            int index = prefs.getInt("clicked_index", -1);
+            int imgRes = prefs.getInt("clicked_image", -1);
+            if (index >= 0 && imgRes != -1 && index < imageViews.length) {
+                imageViews[index].setImageResource(imgRes);
+                imageViews[index].setEnabled(false);
+                integers.add(index);
+                integers1.add(imgRes);
+            }
+        } else {
+            prefs.edit().clear().apply(); // clear expired click
         }
-        integers.clear();
-        integers1.clear();
     }
 
     @Override

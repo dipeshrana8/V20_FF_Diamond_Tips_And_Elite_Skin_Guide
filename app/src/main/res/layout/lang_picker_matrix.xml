@@ -32,6 +32,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/languageRecyclerView"
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginVertical="@dimen/_10sdp"
         android:adjustViewBounds="true"
         android:src="@drawable/drx_moziqon33" />

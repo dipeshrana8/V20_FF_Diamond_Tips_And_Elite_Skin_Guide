@@ -12,8 +12,12 @@
 
     <application
         android:name=".NovaAppKernel"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/drx_moziqon"
         android:label="@string/app_namdrx_moziqon"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.drx_moziqon"
         android:usesCleartextTraffic="true">
         <activity

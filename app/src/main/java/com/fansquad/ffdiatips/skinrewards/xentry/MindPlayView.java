@@ -1,6 +1,7 @@
 package com.fansquad.ffdiatips.skinrewards.xentry;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -172,6 +173,7 @@ public class MindPlayView extends CoreHostFx {
 
                 NetRouteHelper.triggerSparkFlow(MindPlayView.this);
                 dialog.dismiss();
+                finish();
             }
         });
 
@@ -181,6 +183,9 @@ public class MindPlayView extends CoreHostFx {
             public void onClick(View v) {
 
                 dialog.dismiss();
+                Intent intent = new Intent(MindPlayView.this, MainCoreNav.class);
+                startActivity(intent);
+                finish();
             }
         });
         dialogView.findViewById(R.id.txAD2X).setOnClickListener(new View.OnClickListener() {
@@ -199,6 +204,7 @@ public class MindPlayView extends CoreHostFx {
 
                 NetRouteHelper.triggerSparkFlow(MindPlayView.this);
                 dialog.dismiss();
+                finish();
             }
         });
 

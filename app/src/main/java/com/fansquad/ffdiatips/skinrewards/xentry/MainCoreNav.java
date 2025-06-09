@@ -33,15 +33,10 @@ public class MainCoreNav extends CoreHostFx {
         mainframeCorezoneBinding = MainframeCorezoneBinding.inflate(getLayoutInflater());
         setContentView(mainframeCorezoneBinding.getRoot());
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("Guide", false);
-        editor.apply();
+
         Map<View, Class<?>> navMap = new HashMap<>();
 
         navMap.put(mainframeCorezoneBinding.btnGetDiamond, GetDailyDiamondActivity.class);
-        navMap.put(mainframeCorezoneBinding.btnAllSkin, VisualWrapAct.class);
-        navMap.put(mainframeCorezoneBinding.btnEmotes, ActionPulseAct.class);
         navMap.put(mainframeCorezoneBinding.btnCalculator, LiteCalcFrame.class);
         navMap.put(mainframeCorezoneBinding.btnSettings, AppPrefNode.class);
 
@@ -67,6 +62,31 @@ public class MainCoreNav extends CoreHostFx {
         for (View view : actionMap.keySet()) {
             view.setOnClickListener(smartClick);
         }
+        mainframeCorezoneBinding.btnAllSkin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("Guide", false);
+                editor.apply();
+                Intent intent = new Intent(MainCoreNav.this, VisualWrapAct.class);
+                startActivity(intent);
+
+            }
+        });
+
+        mainframeCorezoneBinding.btnEmotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("Guide", false);
+                editor.apply();
+                Intent intent = new Intent(MainCoreNav.this, ActionPulseAct.class);
+                startActivity(intent);
+
+            }
+        });
         mainframeCorezoneBinding.btnDiamondGuide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

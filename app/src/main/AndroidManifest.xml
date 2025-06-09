@@ -16,8 +16,36 @@
         android:label="@string/app_namdrx_moziqon"
         android:theme="@style/Theme.drx_moziqon"
         android:usesCleartextTraffic="true">
-
-
+        <activity
+            android:name=".xentry.ATMActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.GameGuidesActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.PlayerIdActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.PlayerLevelActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.RPLevelActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".xentry.GameModeActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".xentry.DiamonDexterAct"
             android:exported="false"
@@ -48,7 +76,6 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".xentry.BonusFetchAct"
             android:exported="false"
@@ -100,7 +127,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".xentry.AvatarViewAct"
             android:exported="false"
@@ -136,7 +162,6 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

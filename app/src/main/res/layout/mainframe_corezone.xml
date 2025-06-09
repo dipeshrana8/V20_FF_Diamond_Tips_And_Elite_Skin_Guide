@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:layout_weight="1"
             android:ellipsize="marquee"
@@ -34,9 +34,9 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="00"
+            android:text="000"
             android:textColor="@color/drx_moziqonwhite"
-            android:textSize="@dimen/_20ssp" />
+            android:textSize="@dimen/_15ssp" />
     </FrameLayout>
 
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/drx_moziqon53" />
+                android:src="@drawable/img_get_free_diamond" />
 
             <ImageView
                 android:id="@+id/btnGetDiamonAtmGames"
@@ -78,6 +78,14 @@
                 android:layout_marginVertical="@dimen/_5sdp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/drx_moziqon55" />
+
+            <ImageView
+                android:id="@+id/btnDiamondGuide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/drx_moziqon53" />
 
 
             <LinearLayout

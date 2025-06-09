@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/app_maindrx_moziqon_bg"
     android:orientation="vertical"
-    tools:context=".xentry.DiamonDexterAct">
+    tools:context=".xentry.PlayerIdActivity">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/header_topzone_ui" />
 
 
     <ScrollView
@@ -19,6 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
             android:orientation="vertical">
 
             <FrameLayout
@@ -26,50 +31,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginVertical="@dimen/_5sdp"
+
                 android:minHeight="@dimen/_180sdp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_txt_1" />
 
             <ImageView
-                android:id="@+id/imgGif"
+                android:id="@+id/imgCalculator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_50sdp"
                 android:adjustViewBounds="true"
-                android:minHeight="@dimen/_200sdp" />
+                android:src="@drawable/img_enterid" />
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_txt2" />
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+
+                android:background="@drawable/drx_moziqon74"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/etCal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:background="@null"
+                    android:fontFamily="@font/drx_moziqonmedium"
+                    android:hint="Enter your ID"
+                    android:inputType="number"
+                    android:textColor="@color/drx_moziqonwhite"
+                    android:textColorHint="@color/drx_moziqonwhite"
+                    android:textSize="@dimen/_10ssp" />
+            </LinearLayout>
 
 
         </LinearLayout>
-
-
     </ScrollView>
 
-
     <ImageView
-        android:id="@+id/btnNext"
+        android:id="@+id/imgBtnCalculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_10sdp"
         android:adjustViewBounds="true"
-        android:src="@drawable/drx_moziqon33"
-        android:visibility="gone" />
+        android:src="@drawable/drx_moziqon33" />
+
 </LinearLayout>

@@ -96,7 +96,7 @@ public class CharacterListActivity extends CoreHostFx {
                     .putString("ability", character.getAbility())
                     .putString("imagePath", character.getImagePath())
                     .apply();
-            Intent intent = new Intent(CharacterListActivity.this, CoreDetailsFx.class);
+            Intent intent = new Intent(CharacterListActivity.this, GameModeActivity.class);
             startActivity(intent);
         });
         recyclerView.setAdapter(avatarBinder);

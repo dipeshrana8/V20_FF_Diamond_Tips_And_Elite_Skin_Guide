@@ -27,6 +27,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+
         }
         release {
             isMinifyEnabled = true
@@ -63,5 +65,8 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.gson)
     implementation("com.onesignal:OneSignal:[5.1.6, 5.1.99]")
+    implementation(libs.appcompat)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
 
 }

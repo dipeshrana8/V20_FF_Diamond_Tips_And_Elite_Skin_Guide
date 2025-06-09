@@ -45,8 +45,6 @@ public class SpinTryAct extends CoreHostFx {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         int totalReward = sharedPreferences.getInt("reward_value", 0);
-
-
         winluckCoretrackBinding.txtCountEarn.setText("Total : " + totalReward);
     }
 
@@ -78,6 +76,36 @@ public class SpinTryAct extends CoreHostFx {
     }
 
     private void onImageClicked(int index) {
+        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        long lastSpinTime = prefs.getLong("last_spin_time", 0);
+        long currentTime = System.currentTimeMillis();
+        long hoursDiff = (currentTime - lastSpinTime) / (1000 * 60 * 60); // hours
+
+        if (hoursDiff < 24) {
+            View dialogView = LayoutInflater.from(SpinTryAct.this).inflate(R.layout.aftreclickdialog, null);
+            AlertDialog dialog = new AlertDialog.Builder(SpinTryAct.this)
+                    .setView(dialogView)
+                    .create();
+
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+
+
+            dialogView.findViewById(R.id.btnOkay).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+            return;
+        }
+
+        // Allow spin
         if (integers.contains(index) || integers.size() >= 3)
             return;
 
@@ -86,6 +114,8 @@ public class SpinTryAct extends CoreHostFx {
         integers1.add(shuffledimages[index]);
 
         if (integers.size() == 3) {
+            // Save current time as spin time
+            prefs.edit().putLong("last_spin_time", currentTime).apply();
             new Handler().postDelayed(this::checkResult, 1000);
         }
     }
@@ -96,8 +126,6 @@ public class SpinTryAct extends CoreHostFx {
 
         if (allMatch) {
             Toast.makeText(this, "🎉 You got 50 points!", Toast.LENGTH_SHORT).show();
-
-
             youWinnner();
         } else {
             Toast.makeText(this, "Try Next Time!", Toast.LENGTH_SHORT).show();
@@ -107,8 +135,6 @@ public class SpinTryAct extends CoreHostFx {
     }
 
     private void youWinnner() {
-
-
         View dialogView = LayoutInflater.from(SpinTryAct.this).inflate(R.layout.modal_spinfetch, null);
         AlertDialog dialog = new AlertDialog.Builder(SpinTryAct.this)
                 .setView(dialogView)
@@ -118,58 +144,41 @@ public class SpinTryAct extends CoreHostFx {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
+        dialogView.findViewById(R.id.btnCollect).setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            int currentTotal = sharedPreferences.getInt("reward_value", 0);
+            int updatedTotal = currentTotal + 50;
 
-        dialogView.findViewById(R.id.btnCollect).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                int currentTotal = sharedPreferences.getInt("reward_value", 0); // default is 0
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("reward_value", updatedTotal);
+            editor.apply();
 
-                int my_new = Integer.parseInt("50");
-                int updatedTotal = currentTotal + my_new;
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("reward_value", updatedTotal);
-                editor.apply();
-
-                winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
-
-
-                NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
-                dialog.dismiss();
-            }
+            winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
+            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
+            dialog.dismiss();
         });
 
-
-        dialogView.findViewById(R.id.txtHome).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
-                dialog.dismiss();
-            }
+        dialogView.findViewById(R.id.txtHome).setOnClickListener(v -> {
+            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
+            dialog.dismiss();
         });
-        dialogView.findViewById(R.id.txAD2X).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                int currentTotal = sharedPreferences.getInt("reward_value", 0); // default is 0
 
-                int my_new = Integer.parseInt("100");
-                int updatedTotal = currentTotal + my_new;
+        dialogView.findViewById(R.id.txAD2X).setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            int currentTotal = sharedPreferences.getInt("reward_value", 0);
+            int updatedTotal = currentTotal + 100;
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("reward_value", updatedTotal);
-                editor.apply();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("reward_value", updatedTotal);
+            editor.apply();
 
-                winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
-                NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
-                dialog.dismiss();
-            }
+            winluckCoretrackBinding.txtCountEarn.setText("Total : " + updatedTotal);
+            NetRouteHelper.triggerSparkFlow(SpinTryAct.this);
+            dialog.dismiss();
         });
 
         dialog.show();
     }
-
 
     private void resetGameState() {
         for (int index : integers) {

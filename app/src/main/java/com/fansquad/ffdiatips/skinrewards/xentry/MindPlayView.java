@@ -1,9 +1,13 @@
 package com.fansquad.ffdiatips.skinrewards.xentry;
 
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,6 +16,7 @@ import com.fansquad.ffdiatips.skinrewards.R;
 import com.fansquad.ffdiatips.skinrewards.databinding.ScreenBraingridMainBinding;
 import com.fansquad.ffdiatips.skinrewards.datazone.QMatrixCore;
 import com.fansquad.ffdiatips.skinrewards.datazone.QUnitNode;
+import com.fansquad.ffdiatips.skinrewards.zstream.NetRouteHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +27,6 @@ public class MindPlayView extends CoreHostFx {
     private int questionIndex = 0;
     private int correctAnswers = 0;
     private List<QUnitNode> qUnitNodes;
-
     private Button[] buttons;
 
     @Override
@@ -36,8 +40,12 @@ public class MindPlayView extends CoreHostFx {
         screenBraingridMainBinding.toolbarLayout.btnBack.setOnClickListener(v -> exitWithBridgeAd());
 
         qUnitNodes = QMatrixCore.getQuestions(category);
-
-        buttons = new Button[]{screenBraingridMainBinding.btnOption1, screenBraingridMainBinding.btnOption2, screenBraingridMainBinding.btnOption3, screenBraingridMainBinding.btnOption4};
+        buttons = new Button[]{
+                screenBraingridMainBinding.btnOption1,
+                screenBraingridMainBinding.btnOption2,
+                screenBraingridMainBinding.btnOption3,
+                screenBraingridMainBinding.btnOption4
+        };
 
         loadQuestion();
 
@@ -49,7 +57,8 @@ public class MindPlayView extends CoreHostFx {
 
     private void loadQuestion() {
         if (questionIndex >= qUnitNodes.size()) {
-            Toast.makeText(this, "Quiz Complete!", Toast.LENGTH_SHORT).show();
+            youWinnner();
+
             return;
         }
 
@@ -66,7 +75,6 @@ public class MindPlayView extends CoreHostFx {
             switch (q.getOptions()[q.getAnswerIndex()].toLowerCase()) {
                 case "red":
                     screenBraingridMainBinding.viewColorCircle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0C0C")));
-
                     break;
                 case "yellow":
                     screenBraingridMainBinding.viewColorCircle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFBE0C")));
@@ -75,8 +83,6 @@ public class MindPlayView extends CoreHostFx {
                     screenBraingridMainBinding.viewColorCircle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00982E")));
                     break;
                 case "white":
-                    screenBraingridMainBinding.viewColorCircle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF1D7F")));
-                    break;
                 case "pink":
                     screenBraingridMainBinding.viewColorCircle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF1D7F")));
                     break;
@@ -105,7 +111,6 @@ public class MindPlayView extends CoreHostFx {
         for (int i = 0; i < buttons.length; i++) {
             buttons[i].setEnabled(false);
             buttons[i].setBackgroundResource(i == selectedIndex ? R.drawable.drx_moziqon2 : R.drawable.drx_moziqon1);
-
             buttons[i].setTextColor(i == selectedIndex
                     ? getResources().getColor(R.color.drx_moziqon)
                     : getResources().getColor(R.color.drx_moziqonwhite));
@@ -113,9 +118,19 @@ public class MindPlayView extends CoreHostFx {
 
         if (selectedIndex == correctIndex) {
             correctAnswers++;
+
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+            screenBraingridMainBinding.btnOption1.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption2.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption3.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption4.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+
         } else {
             Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
+            screenBraingridMainBinding.btnOption1.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption2.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption3.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
+            screenBraingridMainBinding.btnOption4.setTextColor(getResources().getColor(R.color.drx_moziqonwhite));
         }
 
         questionIndex++;
@@ -126,7 +141,68 @@ public class MindPlayView extends CoreHostFx {
     @Override
     public void onBackPressed() {
         exitWithBridgeAd();
-
-
     }
+
+    private void youWinnner() {
+
+
+        View dialogView = LayoutInflater.from(MindPlayView.this).inflate(R.layout.modal_spinfetch, null);
+        AlertDialog dialog = new AlertDialog.Builder(MindPlayView.this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        dialogView.findViewById(R.id.btnCollect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                int currentTotal = sharedPreferences.getInt("reward_value", 0); // default is 0
+
+                int my_new = Integer.parseInt("50");
+                int updatedTotal = currentTotal + my_new;
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("reward_value", updatedTotal);
+                editor.apply();
+
+
+                NetRouteHelper.triggerSparkFlow(MindPlayView.this);
+                dialog.dismiss();
+            }
+        });
+
+
+        dialogView.findViewById(R.id.txtHome).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+        dialogView.findViewById(R.id.txAD2X).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                int currentTotal = sharedPreferences.getInt("reward_value", 0);
+
+                int my_new = Integer.parseInt("100");
+                int updatedTotal = currentTotal + my_new;
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("reward_value", updatedTotal);
+                editor.apply();
+
+
+                NetRouteHelper.triggerSparkFlow(MindPlayView.this);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
 }

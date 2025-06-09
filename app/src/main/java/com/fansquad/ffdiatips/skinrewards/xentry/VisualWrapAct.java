@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-
 import com.fansquad.ffdiatips.skinrewards.databinding.ScreenSkinpanelxBinding;
 
 import java.util.HashMap;

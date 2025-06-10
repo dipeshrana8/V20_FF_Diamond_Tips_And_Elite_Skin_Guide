@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:layout_weight="1"
             android:ellipsize="marquee"
@@ -36,7 +36,7 @@
             android:singleLine="true"
             android:text="000"
             android:textColor="@color/drx_moziqonwhite"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_12ssp" />
     </FrameLayout>
 
 
